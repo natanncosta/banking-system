@@ -17,7 +17,7 @@ namespace BankingSystem.Library
             foreach (var client in clients)
                 if (client.CPF == cpf)
                     return client;
-            throw new ArgumentException("Cliente nao encontrado.");
+            throw new BankingException("Cliente nao encontrado.");
         }
 
         public HashSet<Client> GetAll()
