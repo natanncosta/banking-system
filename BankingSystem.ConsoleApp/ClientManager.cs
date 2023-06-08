@@ -75,7 +75,7 @@ namespace BankingSystem.ConsoleApp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
                 Console.ResetColor();
-                GetClient();
+                BackToClientMenu();
             }
             return client;
         }

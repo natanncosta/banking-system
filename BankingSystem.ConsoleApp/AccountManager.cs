@@ -62,9 +62,7 @@ namespace BankingSystem.ConsoleApp
             else if (option == "2")
                 DoDeposit(account);
             else if (option == "3")
-            {
                 ShowBalance(account);
-            }
             else
             {
                 AccountActionsMenu(account);
@@ -142,14 +140,14 @@ namespace BankingSystem.ConsoleApp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
                 Console.ResetColor();
-                GetAccount();
+                BackToAccountMenu();
             }
             catch (FormatException)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("Digite apenas numeros!");
                 Console.ResetColor();
-                GetAccount();
+                BackToAccountMenu();
             }
             return account;
         }
@@ -169,7 +167,6 @@ namespace BankingSystem.ConsoleApp
                     Console.Write($"{account.Balance}".PadRight(p));
                 }
             }
-
             BackToAccountMenu();
         }
 
