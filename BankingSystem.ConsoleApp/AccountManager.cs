@@ -10,7 +10,6 @@ namespace BankingSystem.ConsoleApp
 
         public static void Menu()
         {
-
             Console.Clear();
             Console.WriteLine("1 - Adicionar conta");
             Console.WriteLine("2 - Editar conta");
@@ -32,7 +31,7 @@ namespace BankingSystem.ConsoleApp
                 case "3":
                     ShowAllAccounts(); break;
                 case "4":
-                    GetAccount(); break;
+                    ShowAccount(); break;
                 case "5":
                     DeleteAccount(); break;
                 case "6":
@@ -40,6 +39,50 @@ namespace BankingSystem.ConsoleApp
                 default:
                     Menu(); break;
             }
+        }
+
+        private static void ShowAccount()
+        {
+            Console.Clear();
+            Account account = GetAccount();
+            Console.WriteLine(account.ToString());
+            AccountActionsMenu(account);
+        }
+
+        private static void AccountActionsMenu(Account account)
+        {
+            Console.WriteLine("1 - Sacar");
+            Console.WriteLine("2 - Depositar");
+            Console.WriteLine("3 - Ver Saldo");
+            Console.Write("=> ");
+            string option = Console.ReadLine();
+            if (option == "1")
+                DoWithdraw(account);
+            else if (option == "2")
+                DoDeposit(account);
+            else if (option == "3")
+            {
+                Console.Write($"\nSaldo disponível: ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("R$ " + account.Balance.ToString("0.00"));
+                Console.ResetColor();
+
+                BackToAccountMenu();
+            }
+            else
+            {
+                AccountActionsMenu(account);
+            }
+        }
+
+        private static void DoWithdraw(Account account)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void DoDeposit(Account account)
+        {
+            throw new NotImplementedException();
         }
 
         private static void DeleteAccount()

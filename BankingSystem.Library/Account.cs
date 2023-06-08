@@ -46,5 +46,12 @@ namespace BankingSystem.Library
         {
             return HashCode.Combine(Agency, Number, Client, Balance);
         }
+
+        public override string ToString()
+        {
+            return "Agência: " + Agency
+                + "Número: " + Number
+                + "Correntista: " + Client.ToString();
+        }
     }
 }
