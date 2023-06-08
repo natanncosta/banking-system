@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BankingSystem.Library;
 
 namespace BankingSystem.ConsoleApp
@@ -101,7 +102,23 @@ namespace BankingSystem.ConsoleApp
 
         private static void ShowAllClients()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+
+            List<Client> clients = _clientCrud.GetAll();
+
+            int p = 10;
+            string header = "CPF".PadRight(p)
+                            + "| Nome".PadRight(p)
+                            + "| RG".PadRight(p)
+                            + "| Endereço".PadRight(p);
+            Console.WriteLine(header);
+
+            foreach (var client in clients)
+                Console.WriteLine(
+                        $"{client.CPF.PadRight(p)}{client.Name.PadRight(p)}"
+                        + $"{client.RG.PadRight(p)}{client.Address.PadRight(p)}");
+
+            BackToClientMenu();
         }
 
         public static Client GetClient()
