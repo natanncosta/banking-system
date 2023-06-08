@@ -63,17 +63,22 @@ namespace BankingSystem.ConsoleApp
                 DoDeposit(account);
             else if (option == "3")
             {
-                Console.Write($"\nSaldo disponível: ");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("R$ " + account.Balance.ToString("0.00"));
-                Console.ResetColor();
-
-                BackToAccountMenu();
+                ShowBalance(account);
             }
             else
             {
                 AccountActionsMenu(account);
             }
+        }
+
+        private static void ShowBalance(Account account)
+        {
+            Console.Write($"\nSaldo disponível: ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("R$ " + account.Balance.ToString("0.00"));
+            Console.ResetColor();
+
+            BackToAccountMenu();
         }
 
         private static void DoWithdraw(Account account)
