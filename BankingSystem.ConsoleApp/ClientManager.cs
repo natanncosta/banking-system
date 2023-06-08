@@ -79,7 +79,24 @@ namespace BankingSystem.ConsoleApp
 
         private static void EditClient()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+
+            Client client = GetClient();
+
+            Console.Write("Digite o nome atualizado: ");
+            client.Name = Console.ReadLine();
+            Console.Write("Digite o RG atualizado: ");
+            client.RG = Console.ReadLine();
+            Console.Write("Digite o endereco atualizado: ");
+            client.Address = Console.ReadLine();
+
+            _clientCrud.Update(client);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Informacões do cliente atualizadas com sucesso!");
+            Console.ResetColor();
+
+            BackToClientMenu();
         }
 
         private static void ShowAllClients()
