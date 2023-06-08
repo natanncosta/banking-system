@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "sOR2a4uDxd5yqaVCfPz+QJhRfdGWouyy0qT0FUYHMiiktQAtTHb3d8cLO02ngZ40Fmu0jYQICVW9NOAk+orf1w==",
+  "success": true,
+  "projectFilePath": "/home/natan/www/jp/BankingSystem/BankingSystem.ConsoleApp/BankingSystem.ConsoleApp.csproj",
+  "expectedPackageFiles": [
+    "/home/natan/.nuget/packages/microsoft.aspnetcore.app.ref/5.0.0/microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
