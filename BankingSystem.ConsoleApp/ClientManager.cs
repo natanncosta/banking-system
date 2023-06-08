@@ -47,7 +47,34 @@ namespace BankingSystem.ConsoleApp
 
         private static void CreateClient()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+
+            Console.Write("Digite o CPF: ");
+            string cpf = Console.ReadLine();
+
+            Client client = _clientCrud.GetClient(cpf);
+            if (client is not null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Já há um cliente cadastrado neste número de CPF!");
+                Console.ResetColor();
+                BackToClientMenu();
+            }
+
+            Console.Write("Digite o nome do cliente: ");
+            string name = Console.ReadLine();
+            Console.Write("Digite o RG: ");
+            string rg = Console.ReadLine();
+            Console.Write("Digite o endereco do cliente: ");
+            string address = Console.ReadLine();
+
+            Client newClient = new(name, cpf, rg, address);
+            _clientCrud.Add(newClient);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Cliente cadastrado com sucesso!!");
+            Console.ResetColor();
+            BackToClientMenu();
         }
 
         private static void EditClient()
@@ -62,18 +89,14 @@ namespace BankingSystem.ConsoleApp
 
         public static Client GetClient()
         {
-            Client client = null;
-            try
+            Console.Write("Digite o CPF do cliente: ");
+            string cpf = Console.ReadLine();
+
+            Client client = _clientCrud.GetClient(cpf);
+            if (client is null)
             {
-                Console.Write("Digite o CPF do cliente: ");
-                string cpf = Console.ReadLine();
-                client = _clientCrud.GetClient(cpf);
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Cliente não encontrado.");
                 Console.ResetColor();
                 BackToClientMenu();
             }
