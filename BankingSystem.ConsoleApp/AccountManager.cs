@@ -144,7 +144,7 @@ namespace BankingSystem.ConsoleApp
                 int number = Convert.ToInt32(Console.ReadLine());
                 account = _accountCrud.GetAccount(number);
             }
-            catch (ArgumentException e)
+            catch (BankingException e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
