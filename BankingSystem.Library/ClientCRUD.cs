@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System;
 
 namespace BankingSystem.Library
 {
@@ -17,7 +16,7 @@ namespace BankingSystem.Library
             foreach (var client in clients)
                 if (client.CPF == cpf)
                     return client;
-            throw new BankingException("Cliente nao encontrado.");
+            return null;
         }
 
         public HashSet<Client> GetAll()
