@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using BankingSystem.Library;
 
@@ -77,7 +78,23 @@ namespace BankingSystem.ConsoleApp
 
         private static void DoWithdraw(Account account)
         {
-            throw new NotImplementedException();
+            Console.Clear();
+
+            try
+            {
+                Console.Write("Digite o valor do saque: R$ ");
+                double amount = Convert.ToDouble(Console.ReadLine());
+                account.Withdraw(amount);
+            }
+            catch (BankingException e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+
+                Thread.Sleep(2000);
+                AccountActionsMenu(account);
+            }
         }
 
         private static void DoDeposit(Account account)
