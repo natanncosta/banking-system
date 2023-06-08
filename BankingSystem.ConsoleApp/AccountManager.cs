@@ -85,6 +85,12 @@ namespace BankingSystem.ConsoleApp
                 Console.Write("Digite o valor do saque: R$ ");
                 double amount = Convert.ToDouble(Console.ReadLine());
                 account.Withdraw(amount);
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Saque realizado com sucesso.");
+                Console.ResetColor();
+
+                BackToAccountMenu();
             }
             catch (BankingException e)
             {
