@@ -105,7 +105,17 @@ namespace BankingSystem.ConsoleApp
 
         private static void DoDeposit(Account account)
         {
-            throw new NotImplementedException();
+            Console.Clear();
+
+            Console.Write($"Digite o valor que gostaria de depositar: R$ ");
+            double amount = Convert.ToDouble(Console.ReadLine());
+            account.Deposit(amount);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Deposito realizado com sucesso.");
+            Console.ResetColor();
+
+            BackToAccountMenu();
         }
 
         private static void DeleteAccount()
