@@ -123,7 +123,16 @@ namespace BankingSystem.ConsoleApp
 
         private static void DeleteAccount()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+
+            Account account = GetAccount();
+            _accountCrud.Delete(account);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Conta excluida com sucesso.");
+            Console.ResetColor();
+
+            BackToAccountMenu();
         }
 
         private static Account GetAccount()
