@@ -195,7 +195,7 @@ namespace BankingSystem.ConsoleApp
             Console.Clear();
 
             Client client = ClientManager.GetClient();
-            Console.Write("Digite a agencia: ");
+            Console.Write("Digite o número da agencia: ");
             int agency = Convert.ToInt32(Console.ReadLine());
 
             Account account = null;
@@ -205,6 +205,8 @@ namespace BankingSystem.ConsoleApp
                 account = new InvestmentAccount(agency, client);
             else if (type == "3")
                 account = new SavingsAccount(agency, client);
+
+            Console.WriteLine("Número da conta: " + account.Number);
 
             _accountCrud.Add(account);
 
