@@ -31,20 +31,12 @@ namespace BankingSystem.Library
             return amountOfAccounts;
         }
 
-        public override bool Equals(object account)
+        public override bool Equals(object obj)
         {
-            Account act;
-            if (account is Account)
-            {
-                act = (Account)account;
-                return act.Number == Number;
-            }
-            return false;
-        }
+            if (obj is not Account) return false;
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Agency, Number, Client, Balance);
+            Account account = (Account)obj;
+            return Number == account.Number;
         }
 
         public override string ToString()
@@ -52,6 +44,11 @@ namespace BankingSystem.Library
             return "Agência: " + Agency
                 + "Número: " + Number
                 + "Correntista: " + Client.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Agency, Number, Client, Balance);
         }
     }
 }
