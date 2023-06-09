@@ -148,7 +148,17 @@ namespace BankingSystem.ConsoleApp
 
         private static void DeleteClient()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+
+            Client client = GetClient();
+
+            _clientCrud.Delete(client);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Cliente excluido com sucesso.");
+            Console.ResetColor();
+
+            BackToClientMenu();
         }
 
 
