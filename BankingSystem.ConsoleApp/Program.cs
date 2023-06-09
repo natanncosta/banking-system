@@ -32,7 +32,7 @@ namespace BankingSystem.ConsoleApp
                 case "2":
                     ClientManager.Menu(); break;
                 case "3":
-                    AccountManager.MoneyInCash(); break;
+                    AccountManager.TotalMoney(); break;
                 case "4":
                     TotalTaxs(); break;
                 case "5":

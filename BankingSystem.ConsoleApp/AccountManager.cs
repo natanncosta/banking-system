@@ -230,7 +230,7 @@ namespace BankingSystem.ConsoleApp
             return option;
         }
 
-        public static void MoneyInCash()
+        public static void TotalMoney()
         {
             Console.Clear();
 
