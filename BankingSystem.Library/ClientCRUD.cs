@@ -19,9 +19,9 @@ namespace BankingSystem.Library
             return null;
         }
 
-        public List<Client> GetAll()
+        public HashSet<Client> GetAll()
         {
-            return new List<Client>(clients);
+            return new HashSet<Client>(clients);
         }
 
         public void Update(Client client)
