@@ -4,7 +4,7 @@ namespace BankingSystem.Library
 {
     public class AccountCRUD
     {
-        private static HashSet<Account> accounts = new();
+        private static List<Account> accounts = new();
 
         public void Add(Account account)
         {
@@ -19,15 +19,15 @@ namespace BankingSystem.Library
             return null;
         }
 
-        public HashSet<Account> GetAll()
+        public List<Account> GetAll()
         {
-            return new HashSet<Account>(accounts);
+            return new List<Account>(accounts);
         }
 
-        public void Update(Account account)
+        public void Update(Account oldAccount, Account updatedAccount)
         {
-            accounts.Remove(account);
-            accounts.Add(account);
+            accounts.Remove(oldAccount);
+            accounts.Add(updatedAccount);
         }
 
         public void Delete(Account account)

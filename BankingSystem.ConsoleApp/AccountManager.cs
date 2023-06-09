@@ -153,7 +153,7 @@ namespace BankingSystem.ConsoleApp
 
         private static void ShowAllAccounts()
         {
-            HashSet<Account> accounts = _accountCrud.GetAll();
+            List<Account> accounts = _accountCrud.GetAll();
             if (accounts is not null)
             {
                 int p = 10; // pad size
@@ -173,12 +173,15 @@ namespace BankingSystem.ConsoleApp
         {
             Console.Clear();
 
-            Account account = GetAccount();
-            Console.Write("Digite o número da nova agencia: ");
-            account.Agency = Convert.ToInt32(Console.ReadLine());
-            account.Client = ClientManager.GetClient();
+            Account oldAccount = GetAccount();
+            Account updatedAccount = oldAccount;
 
-            _accountCrud.Update(account);
+            Console.Write("Digite o número da nova agencia: ");
+            updatedAccount.Agency = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Digite o CPF do novo cliente");
+            updatedAccount.Client = ClientManager.GetClient();
+
+            _accountCrud.Update(oldAccount, updatedAccount);
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Conta atualizada.");
