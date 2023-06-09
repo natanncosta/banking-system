@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace BankingSystem.ConsoleApp
@@ -31,7 +32,7 @@ namespace BankingSystem.ConsoleApp
                 case "2":
                     ClientManager.Menu(); break;
                 case "3":
-                    MoneyInCash(); break;
+                    AccountManager.MoneyInCash(); break;
                 case "4":
                     TotalTaxs(); break;
                 case "5":
@@ -39,11 +40,6 @@ namespace BankingSystem.ConsoleApp
                 default:
                     MainMenu(); break;
             }
-        }
-
-        static void MoneyInCash()
-        {
-            throw new NotImplementedException();
         }
 
         static void TotalTaxs()

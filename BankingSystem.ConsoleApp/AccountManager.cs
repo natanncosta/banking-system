@@ -230,6 +230,19 @@ namespace BankingSystem.ConsoleApp
             return option;
         }
 
+        public static void MoneyInCash()
+        {
+            Console.Clear();
+
+            double moneyInCash = 0;
+            List<Account> accounts = _accountCrud.GetAll();
+            foreach (var account in accounts)
+                moneyInCash += account.Balance;
+            Console.WriteLine("Montante em caixa: R$ " + moneyInCash.ToString(".00"));
+
+            BackToAccountMenu();
+        }
+
         static void BackToAccountMenu()
         {
             Console.WriteLine("\nDite...");
