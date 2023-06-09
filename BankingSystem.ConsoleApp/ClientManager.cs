@@ -91,16 +91,17 @@ namespace BankingSystem.ConsoleApp
         {
             Console.Clear();
 
-            Client client = GetClient();
+            Client old = GetClient();
+            Client newClient = new(old.CPF);
 
             Console.Write("Digite o nome atualizado: ");
-            client.Name = Console.ReadLine();
+            newClient.Name = Console.ReadLine();
             Console.Write("Digite o RG atualizado: ");
-            client.RG = Console.ReadLine();
+            newClient.RG = Console.ReadLine();
             Console.Write("Digite o endereco atualizado: ");
-            client.Address = Console.ReadLine();
+            newClient.Address = Console.ReadLine();
 
-            _clientCrud.Update(client);
+            _clientCrud.Update(old, newClient);
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Informacões do cliente atualizadas com sucesso!");

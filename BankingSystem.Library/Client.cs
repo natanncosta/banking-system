@@ -17,6 +17,11 @@ namespace BankingSystem.Library
             Address = address;
         }
 
+        public Client(string cpf)
+        {
+            CPF = cpf;
+        }
+
         public override bool Equals(object obj)
         {
             return obj is Client client &&

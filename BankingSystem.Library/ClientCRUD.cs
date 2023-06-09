@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 
 namespace BankingSystem.Library
 {
@@ -24,10 +25,10 @@ namespace BankingSystem.Library
             return new HashSet<Client>(clients);
         }
 
-        public void Update(Client client)
+        public void Update(Client oldClient, Client newClient)
         {
-            clients.Remove(client);
-            clients.Add(client);
+            Console.WriteLine(clients.Remove(oldClient));
+            clients.Add(newClient);
         }
 
         public void Delete(Client client)
