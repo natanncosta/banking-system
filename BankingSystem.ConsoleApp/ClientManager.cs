@@ -113,7 +113,7 @@ namespace BankingSystem.ConsoleApp
         {
             Console.Clear();
 
-            List<Client> clients = _clientCrud.GetAll();
+            HashSet<Client> clients = _clientCrud.GetAll();
 
             int p = 10;
             string header = "CPF".PadRight(p)

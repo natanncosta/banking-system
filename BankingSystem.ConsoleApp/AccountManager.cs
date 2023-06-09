@@ -153,7 +153,7 @@ namespace BankingSystem.ConsoleApp
 
         private static void ShowAllAccounts()
         {
-            List<Account> accounts = _accountCrud.GetAll();
+            HashSet<Account> accounts = _accountCrud.GetAll();
             if (accounts is not null)
             {
                 int p = 10; // pad size

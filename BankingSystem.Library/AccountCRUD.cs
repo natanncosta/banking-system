@@ -19,9 +19,9 @@ namespace BankingSystem.Library
             return null;
         }
 
-        public List<Account> GetAll()
+        public HashSet<Account> GetAll()
         {
-            return new List<Account>(accounts);
+            return new HashSet<Account>(accounts);
         }
 
         public void Update(Account account)
