@@ -43,7 +43,16 @@ namespace BankingSystem.ConsoleApp
 
         private static void ShowClient()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+
+            Client client = GetClient();
+
+            int p = 10;
+            Console.WriteLine(
+                    $"{"CPF".PadRight(p)}{"| Nome".PadRight(p)}{"| RG".PadRight(p)}{"| Endereço".PadRight(p)}");
+            Console.WriteLine($"{client.CPF.PadRight(p)}{client.Name.PadRight(p)}{client.RG.PadRight(p)}{client.Address.PadRight(p)}");
+
+            BackToClientMenu();
         }
 
         private static void CreateClient()
