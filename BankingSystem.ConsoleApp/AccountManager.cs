@@ -255,7 +255,7 @@ namespace BankingSystem.ConsoleApp
                     InvestmentAccount invAccount = (InvestmentAccount)account;
                     totalTax += invAccount.CalcTax();
                 }
-            Console.WriteLine("Total de tributos: R$ " + totalTax.ToString(".00"));
+            Console.WriteLine("Total de tributos: R$ " + totalTax.ToString("0.00"));
 
             BackToAccountMenu();
         }

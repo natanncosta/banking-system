@@ -8,7 +8,7 @@ namespace BankingSystem.Library
 
         public double CalcTax()
         {
-            throw new System.NotImplementedException();
+            return Balance * 0.10;
         }
 
         public override void Withdraw(double amount)
