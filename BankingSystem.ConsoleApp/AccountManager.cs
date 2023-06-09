@@ -243,6 +243,23 @@ namespace BankingSystem.ConsoleApp
             BackToAccountMenu();
         }
 
+        public static void TotalTaxs()
+        {
+            Console.Clear();
+
+            double totalTax = 0;
+            List<Account> accounts = _accountCrud.GetAll();
+            foreach (var account in accounts)
+                if (account is InvestmentAccount)
+                {
+                    InvestmentAccount invAccount = (InvestmentAccount)account;
+                    totalTax += invAccount.CalcTax();
+                }
+            Console.WriteLine("Total de tributos: R$ " + totalTax.ToString(".00"));
+
+            BackToAccountMenu();
+        }
+
         static void BackToAccountMenu()
         {
             Console.WriteLine("\nDite...");

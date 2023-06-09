@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace BankingSystem.ConsoleApp
 {
     public class Program
     {
-
         static void Main(string[] args)
         {
             MainMenu();
@@ -34,17 +32,12 @@ namespace BankingSystem.ConsoleApp
                 case "3":
                     AccountManager.TotalMoney(); break;
                 case "4":
-                    TotalTaxs(); break;
+                    AccountManager.TotalTaxs(); break;
                 case "5":
                     Exit(); break;
                 default:
                     MainMenu(); break;
             }
-        }
-
-        static void TotalTaxs()
-        {
-            throw new NotImplementedException();
         }
 
         static void Exit()
@@ -64,14 +57,5 @@ namespace BankingSystem.ConsoleApp
             Console.Write("=> ");
             return Console.ReadLine();
         }
-
-        public static void BackToMainMenu()
-        {
-            Console.WriteLine("\nDite...");
-            Console.ReadKey();
-            MainMenu();
-        }
-
-
     }
 }
