@@ -174,6 +174,7 @@ namespace BankingSystem.ConsoleApp
             }
             else
             {
+                Console.Clear();
                 int p = 12; // pad size
                 Console.WriteLine("Agência".PadRight(p) + "| Número".PadRight(p) + "| Correntista".PadRight(p) + "| Saldo");
                 foreach (var account in accounts)
@@ -267,7 +268,11 @@ namespace BankingSystem.ConsoleApp
             List<Account> accounts = _accountCrud.GetAll();
             foreach (var account in accounts)
                 moneyInCash += account.Balance;
-            Console.WriteLine("Montante em caixa: R$ " + moneyInCash.ToString(".00"));
+
+            Console.Write("Montante em caixa: ");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("R$ " + moneyInCash.ToString("0.00"));
+            Console.ResetColor();
 
             BackToAccountMenu();
         }
