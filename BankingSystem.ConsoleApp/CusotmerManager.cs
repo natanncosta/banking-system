@@ -1,5 +1,6 @@
 using System;
 using BankingSystem.Library;
+using BankingSystem.Library.Exceptions;
 
 namespace BankingSystem.ConsoleApp
 {
@@ -16,11 +17,26 @@ namespace BankingSystem.ConsoleApp
             Console.WriteLine("4 - Consultar cliente");
             Console.WriteLine("5 - Excluir cliente");
             Console.WriteLine("6 - Voltar");
-            CallCustomerOption(Program.ReadOption());
+            CallOption(Program.ReadOption());
         }
 
-        static void CallCustomerOption(string option)
+        static void CallOption(string option)
         {
+            // if (option == "1")
+            //     Create();
+            // else if (option == "2")
+            //     Edit();
+            // else if (option == "1")
+            //     ShowAll();
+            // else if (option == "1")
+            //     ShowOne();
+            // else if (option == "1")
+            //     Delete();
+            // else if (option == "1")
+            //     Program.MainMenu();
+            // else
+            //     Menu();
+
             switch (option)
             {
                 case "1":
@@ -59,31 +75,34 @@ namespace BankingSystem.ConsoleApp
             Console.Clear();
 
             Console.Write("Digite o CPF: ");
-            string cpf = Console.ReadLine();
+            Customer customer = new Customer(cpf: Console.ReadLine());
 
-            Customer customer = _customerCrud.GetCustomer(cpf);
-            if (customer is not null)
+            try
             {
+                _customerCrud.GetCustomer(customer.CPF);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Já há um cliente cadastrado neste número de CPF!");
                 Console.ResetColor();
                 BackToMenu();
             }
+            catch (CustomerNotFoundException)
+            {
+                Console.Write("Digite o nome do cliente: ");
+                customer.Name = Console.ReadLine();
 
-            Console.Write("Digite o nome do cliente: ");
-            string name = Console.ReadLine();
-            Console.Write("Digite o RG: ");
-            string rg = Console.ReadLine();
-            Console.Write("Digite o endereco do cliente: ");
-            string address = Console.ReadLine();
+                Console.Write("Digite o RG: ");
+                customer.RG = Console.ReadLine();
 
-            Customer newCustomer = new(name, cpf, rg, address);
-            _customerCrud.Add(newCustomer);
+                Console.Write("Digite o endereco do cliente: ");
+                customer.Address = Console.ReadLine();
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Cliente cadastrado com sucesso!!");
-            Console.ResetColor();
-            BackToMenu();
+                _customerCrud.Add(customer);
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Cliente cadastrado com sucesso!!");
+                Console.ResetColor();
+                BackToMenu();
+            }
         }
 
         private static void Edit()
@@ -91,16 +110,16 @@ namespace BankingSystem.ConsoleApp
             Console.Clear();
 
             Customer old = GetCustomer();
-            Customer newClient = new(old.CPF);
+            Customer newCustomer = new(old.CPF);
 
             Console.Write("Digite o nome atualizado: ");
-            newClient.Name = Console.ReadLine();
+            newCustomer.Name = Console.ReadLine();
             Console.Write("Digite o RG atualizado: ");
-            newClient.RG = Console.ReadLine();
+            newCustomer.RG = Console.ReadLine();
             Console.Write("Digite o endereco atualizado: ");
-            newClient.Address = Console.ReadLine();
+            newCustomer.Address = Console.ReadLine();
 
-            _customerCrud.Update(old, newClient);
+            _customerCrud.Update(old, newCustomer);
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Informacões do cliente atualizadas com sucesso!");
@@ -113,8 +132,8 @@ namespace BankingSystem.ConsoleApp
         {
             Console.Clear();
 
-            var clients = _customerCrud.GetAll();
-            if (clients.Count == 0)
+            var customers = _customerCrud.GetAll();
+            if (customers.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("Nenhum cliente registrado!");
@@ -129,10 +148,10 @@ namespace BankingSystem.ConsoleApp
                                 + "| Endereço".PadRight(p);
                 Console.WriteLine(header);
 
-                foreach (var client in clients)
+                foreach (var customer in customers)
                     Console.WriteLine(
-                            $"{client.CPF.PadRight(p)}{client.Name.PadRight(p)}"
-                            + $"{client.RG.PadRight(p)}{client.Address.PadRight(p)}");
+                            $"{customer.CPF.PadRight(p)}{customer.Name.PadRight(p)}"
+                            + $"{customer.RG.PadRight(p)}{customer.Address.PadRight(p)}");
             }
 
             BackToMenu();
@@ -141,26 +160,30 @@ namespace BankingSystem.ConsoleApp
         public static Customer GetCustomer()
         {
             Console.Write("Digite o CPF do cliente: ");
-            string cpf = Console.ReadLine();
+            Customer customer = new(cpf: Console.ReadLine());
 
-            Customer client = _customerCrud.GetCustomer(cpf);
-            if (client is null)
+            try
+            {
+                return _customerCrud.GetCustomer(customer.CPF);
+            }
+            catch (CustomerNotFoundException e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Cliente não encontrado.");
+                Console.WriteLine(e.Message);
                 Console.ResetColor();
                 BackToMenu();
             }
-            return client;
+
+            return customer;
         }
 
         private static void Delete()
         {
             Console.Clear();
 
-            Customer client = GetCustomer();
+            Customer customer = GetCustomer();
 
-            _customerCrud.Delete(client);
+            _customerCrud.Delete(customer);
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Cliente excluido com sucesso.");
