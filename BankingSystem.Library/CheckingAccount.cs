@@ -1,3 +1,5 @@
+using BankingSystem.Library.Exceptions;
+
 namespace BankingSystem.Library
 {
     public class CheckingAccount : Account, ITax
@@ -16,7 +18,7 @@ namespace BankingSystem.Library
         public override void Withdraw(double amount)
         {
             if (amount > Balance)
-                throw new BankingException("Saldo insuficiente.");
+                throw new FundsInsufficientException();
             double tax = 1.05;
             Balance -= amount * tax;
         }

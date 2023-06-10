@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Collections.Generic;
 using BankingSystem.Library;
+using BankingSystem.Library.Exceptions;
 
 namespace BankingSystem.ConsoleApp
 {
@@ -95,7 +96,7 @@ namespace BankingSystem.ConsoleApp
 
                 BackToAccountMenu();
             }
-            catch (BankingException e)
+            catch (FundsInsufficientException e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
