@@ -262,7 +262,7 @@ namespace BankingSystem.ConsoleApp
 
         static void BackToAccountMenu()
         {
-            Console.WriteLine("\nDite...");
+            Console.Write("\nPressione qualquer tecla...");
             Console.ReadKey();
             AccountManager.Menu();
         }

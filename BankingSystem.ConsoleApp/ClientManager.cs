@@ -162,10 +162,9 @@ namespace BankingSystem.ConsoleApp
             BackToClientMenu();
         }
 
-
         static void BackToClientMenu()
         {
-            Console.WriteLine("\nDite...");
+            Console.Write("\nPressione qualquer tecla...");
             Console.ReadKey();
             ClientManager.Menu();
         }
