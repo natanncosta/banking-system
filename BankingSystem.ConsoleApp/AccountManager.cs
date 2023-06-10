@@ -196,19 +196,29 @@ namespace BankingSystem.ConsoleApp
 
             Client client = ClientManager.GetClient();
             Console.Write("Digite o número da agencia: ");
-            int agency = Convert.ToInt32(Console.ReadLine());
+            int agency = 0;
+            try
+            {
+                agency = Convert.ToInt32(Console.ReadLine());
 
-            Account account = null;
-            if (type == "1")
-                account = new CheckingAccount(agency, client);
-            else if (type == "2")
-                account = new InvestmentAccount(agency, client);
-            else if (type == "3")
-                account = new SavingsAccount(agency, client);
+                Account account = null;
+                if (type == "1")
+                    account = new CheckingAccount(agency, client);
+                else if (type == "2")
+                    account = new InvestmentAccount(agency, client);
+                else if (type == "3")
+                    account = new SavingsAccount(agency, client);
 
-            Console.WriteLine("Número da conta: " + account.Number);
+                Console.WriteLine("Número da conta: " + account.Number);
 
-            _accountCrud.Add(account);
+                _accountCrud.Add(account);
+            }
+            catch (FormatException)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("Agência precisa ser um número!");
+                Console.ResetColor();
+            }
 
             BackToAccountMenu();
         }
