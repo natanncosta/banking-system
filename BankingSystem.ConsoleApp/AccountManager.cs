@@ -138,13 +138,24 @@ namespace BankingSystem.ConsoleApp
         private static Account GetAccount()
         {
             Console.Write("Digite o numero da conta: ");
-            int number = Convert.ToInt32(Console.ReadLine());
-
-            Account account = _accountCrud.GetAccount(number);
-            if (account is null)
+            Account account = null;
+            try
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Conta não encontrada.");
+                int number = Convert.ToInt32(Console.ReadLine());
+                account = _accountCrud.GetAccount(number);
+                if (account == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Conta não encontrada.");
+                    Console.ResetColor();
+                    BackToAccountMenu();
+                }
+            }
+            catch (FormatException)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("Digite apenas números!!");
                 Console.ResetColor();
                 BackToAccountMenu();
             }
@@ -154,16 +165,24 @@ namespace BankingSystem.ConsoleApp
         private static void ShowAllAccounts()
         {
             List<Account> accounts = _accountCrud.GetAll();
-            if (accounts is not null)
+            if (accounts.Count == 0)
             {
-                int p = 10; // pad size
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("Nenhuma conta registrada!");
+                Console.ResetColor();
+            }
+            else
+            {
+                int p = 12; // pad size
                 Console.WriteLine("Agência".PadRight(p) + "| Número".PadRight(p) + "| Correntista".PadRight(p) + "| Saldo");
                 foreach (var account in accounts)
                 {
                     Console.Write($"{account.Agency}".PadRight(p));
                     Console.Write($"{account.Number}".PadRight(p));
-                    Console.Write($"{account.Client}".PadRight(p));
-                    Console.Write($"{account.Balance}".PadRight(p));
+                    Console.Write($"{account.Client.Name}".PadRight(p));
+                    Console.Write($"R$ {account.Balance.ToString("0.00")}".PadRight(p));
+                    Console.WriteLine();
                 }
             }
             BackToAccountMenu();
