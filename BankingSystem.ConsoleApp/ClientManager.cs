@@ -13,7 +13,7 @@ namespace BankingSystem.ConsoleApp
             Console.Clear();
             Console.WriteLine("1 - Adicionar cliente");
             Console.WriteLine("2 - Editar cliente");
-            Console.WriteLine("3 - Listar todas as clientes");
+            Console.WriteLine("3 - Listar todos os clientes");
             Console.WriteLine("4 - Consultar cliente");
             Console.WriteLine("5 - Excluir cliente");
             Console.WriteLine("6 - Voltar");
@@ -115,18 +115,26 @@ namespace BankingSystem.ConsoleApp
             Console.Clear();
 
             HashSet<Client> clients = _clientCrud.GetAll();
+            if (clients.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("Nenhum cliente registrado!");
+                Console.ResetColor();
+            }
+            else
+            {
+                int p = 10;
+                string header = "CPF".PadRight(p)
+                                + "| Nome".PadRight(p)
+                                + "| RG".PadRight(p)
+                                + "| Endereço".PadRight(p);
+                Console.WriteLine(header);
 
-            int p = 10;
-            string header = "CPF".PadRight(p)
-                            + "| Nome".PadRight(p)
-                            + "| RG".PadRight(p)
-                            + "| Endereço".PadRight(p);
-            Console.WriteLine(header);
-
-            foreach (var client in clients)
-                Console.WriteLine(
-                        $"{client.CPF.PadRight(p)}{client.Name.PadRight(p)}"
-                        + $"{client.RG.PadRight(p)}{client.Address.PadRight(p)}");
+                foreach (var client in clients)
+                    Console.WriteLine(
+                            $"{client.CPF.PadRight(p)}{client.Name.PadRight(p)}"
+                            + $"{client.RG.PadRight(p)}{client.Address.PadRight(p)}");
+            }
 
             BackToClientMenu();
         }
