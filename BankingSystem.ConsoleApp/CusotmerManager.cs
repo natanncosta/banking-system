@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 using BankingSystem.Library;
 
 namespace BankingSystem.ConsoleApp
 {
-    public static class ClientManager
+    public static class CustomerManager
     {
-        static ClientCRUD _clientCrud = new();
+        static CustomerCRUD _customerCrud = new();
 
         public static void Menu()
         {
@@ -17,23 +16,23 @@ namespace BankingSystem.ConsoleApp
             Console.WriteLine("4 - Consultar cliente");
             Console.WriteLine("5 - Excluir cliente");
             Console.WriteLine("6 - Voltar");
-            CallClientOption(Program.ReadOption());
+            CallCustomerOption(Program.ReadOption());
         }
 
-        static void CallClientOption(string option)
+        static void CallCustomerOption(string option)
         {
             switch (option)
             {
                 case "1":
-                    CreateClient(); break;
+                    Create(); break;
                 case "2":
-                    EditClient(); break;
+                    Edit(); break;
                 case "3":
-                    ShowAllClients(); break;
+                    ShowAll(); break;
                 case "4":
-                    ShowClient(); break;
+                    ShowOne(); break;
                 case "5":
-                    DeleteClient(); break;
+                    Delete(); break;
                 case "6":
                     Program.MainMenu(); break;
                 default:
@@ -41,34 +40,34 @@ namespace BankingSystem.ConsoleApp
             }
         }
 
-        private static void ShowClient()
+        private static void ShowOne()
         {
             Console.Clear();
 
-            Client client = GetClient();
+            Customer customer = GetCustomer();
 
             int p = 10;
             Console.WriteLine(
                     $"{"CPF".PadRight(p)}{"| Nome".PadRight(p)}{"| RG".PadRight(p)}{"| Endereço".PadRight(p)}");
-            Console.WriteLine($"{client.CPF.PadRight(p)}{client.Name.PadRight(p)}{client.RG.PadRight(p)}{client.Address.PadRight(p)}");
+            Console.WriteLine($"{customer.CPF.PadRight(p)}{customer.Name.PadRight(p)}{customer.RG.PadRight(p)}{customer.Address.PadRight(p)}");
 
-            BackToClientMenu();
+            BackToMenu();
         }
 
-        private static void CreateClient()
+        private static void Create()
         {
             Console.Clear();
 
             Console.Write("Digite o CPF: ");
             string cpf = Console.ReadLine();
 
-            Client client = _clientCrud.GetClient(cpf);
-            if (client is not null)
+            Customer customer = _customerCrud.GetCustomer(cpf);
+            if (customer is not null)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Já há um cliente cadastrado neste número de CPF!");
                 Console.ResetColor();
-                BackToClientMenu();
+                BackToMenu();
             }
 
             Console.Write("Digite o nome do cliente: ");
@@ -78,21 +77,21 @@ namespace BankingSystem.ConsoleApp
             Console.Write("Digite o endereco do cliente: ");
             string address = Console.ReadLine();
 
-            Client newClient = new(name, cpf, rg, address);
-            _clientCrud.Add(newClient);
+            Customer newCustomer = new(name, cpf, rg, address);
+            _customerCrud.Add(newCustomer);
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Cliente cadastrado com sucesso!!");
             Console.ResetColor();
-            BackToClientMenu();
+            BackToMenu();
         }
 
-        private static void EditClient()
+        private static void Edit()
         {
             Console.Clear();
 
-            Client old = GetClient();
-            Client newClient = new(old.CPF);
+            Customer old = GetCustomer();
+            Customer newClient = new(old.CPF);
 
             Console.Write("Digite o nome atualizado: ");
             newClient.Name = Console.ReadLine();
@@ -101,20 +100,20 @@ namespace BankingSystem.ConsoleApp
             Console.Write("Digite o endereco atualizado: ");
             newClient.Address = Console.ReadLine();
 
-            _clientCrud.Update(old, newClient);
+            _customerCrud.Update(old, newClient);
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Informacões do cliente atualizadas com sucesso!");
             Console.ResetColor();
 
-            BackToClientMenu();
+            BackToMenu();
         }
 
-        private static void ShowAllClients()
+        private static void ShowAll()
         {
             Console.Clear();
 
-            HashSet<Client> clients = _clientCrud.GetAll();
+            var clients = _customerCrud.GetAll();
             if (clients.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -136,45 +135,45 @@ namespace BankingSystem.ConsoleApp
                             + $"{client.RG.PadRight(p)}{client.Address.PadRight(p)}");
             }
 
-            BackToClientMenu();
+            BackToMenu();
         }
 
-        public static Client GetClient()
+        public static Customer GetCustomer()
         {
             Console.Write("Digite o CPF do cliente: ");
             string cpf = Console.ReadLine();
 
-            Client client = _clientCrud.GetClient(cpf);
+            Customer client = _customerCrud.GetCustomer(cpf);
             if (client is null)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Cliente não encontrado.");
                 Console.ResetColor();
-                BackToClientMenu();
+                BackToMenu();
             }
             return client;
         }
 
-        private static void DeleteClient()
+        private static void Delete()
         {
             Console.Clear();
 
-            Client client = GetClient();
+            Customer client = GetCustomer();
 
-            _clientCrud.Delete(client);
+            _customerCrud.Delete(client);
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Cliente excluido com sucesso.");
             Console.ResetColor();
 
-            BackToClientMenu();
+            BackToMenu();
         }
 
-        static void BackToClientMenu()
+        static void BackToMenu()
         {
             Console.Write("\nPressione qualquer tecla...");
             Console.ReadKey();
-            ClientManager.Menu();
+            CustomerManager.Menu();
         }
     }
 }

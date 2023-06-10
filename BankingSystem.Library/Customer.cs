@@ -2,14 +2,14 @@ using System;
 
 namespace BankingSystem.Library
 {
-    public class Client
+    public class Customer
     {
         public string Name { get; set; }
         public string CPF { get; set; }
         public string RG { get; set; }
         public string Address { get; set; }
 
-        public Client(string name, string cpf, string rg, string address)
+        public Customer(string name, string cpf, string rg, string address)
         {
             Name = name;
             CPF = cpf;
@@ -17,14 +17,14 @@ namespace BankingSystem.Library
             Address = address;
         }
 
-        public Client(string cpf)
+        public Customer(string cpf)
         {
             CPF = cpf;
         }
 
         public override bool Equals(object obj)
         {
-            return obj is Client client &&
+            return obj is Customer client &&
                    CPF == client.CPF;
         }
 

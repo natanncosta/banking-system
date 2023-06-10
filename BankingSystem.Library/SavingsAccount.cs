@@ -6,10 +6,9 @@ namespace BankingSystem.Library
     {
         public SavingsAccount(
             int agency,
-            Client client) : base(agency, client)
+            Customer client) : base(agency, client)
         {
         }
-
 
         public override void Withdraw(double amount)
         {

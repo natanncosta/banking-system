@@ -28,7 +28,7 @@ namespace BankingSystem.ConsoleApp
                 case "1":
                     AccountManager.Menu(); break;
                 case "2":
-                    ClientManager.Menu(); break;
+                    CustomerManager.Menu(); break;
                 case "3":
                     AccountManager.TotalMoney(); break;
                 case "4":

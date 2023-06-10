@@ -7,13 +7,13 @@ namespace BankingSystem.Library
         static int amountOfAccounts = 1;
         public int Agency { get; set; }
         public int Number { get; set; }
-        public Client Client { get; set; }
+        public Customer Customer { get; set; }
         public double Balance { get; protected set; }
 
-        public Account(int agency, Client client)
+        public Account(int agency, Customer customer)
         {
             Agency = agency;
-            Client = client;
+            Customer = customer;
             Number = AmountOfAccounts();
             Balance = 0;
             amountOfAccounts++;
@@ -43,12 +43,12 @@ namespace BankingSystem.Library
         {
             return "Agência: " + Agency
                 + "Número: " + Number
-                + "Correntista: " + Client.ToString();
+                + "Correntista: " + Customer.ToString();
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Agency, Number, Client, Balance);
+            return HashCode.Combine(Agency, Number, Customer, Balance);
         }
     }
 }

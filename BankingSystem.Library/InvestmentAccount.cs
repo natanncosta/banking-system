@@ -4,7 +4,7 @@ namespace BankingSystem.Library
 {
     public class InvestmentAccount : Account, ITax
     {
-        public InvestmentAccount(int agency, Client client) : base(agency, client)
+        public InvestmentAccount(int agency, Customer client) : base(agency, client)
         {
         }
 

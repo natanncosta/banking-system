@@ -6,7 +6,7 @@ namespace BankingSystem.Library
     {
         public CheckingAccount(
             int agency,
-            Client client) : base(agency, client)
+            Customer customer) : base(agency, customer)
         {
         }
 

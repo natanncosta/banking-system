@@ -182,7 +182,7 @@ namespace BankingSystem.ConsoleApp
                 {
                     Console.Write($"{account.Agency}".PadRight(p));
                     Console.Write($"{account.Number}".PadRight(p));
-                    Console.Write($"{account.Client.Name}".PadRight(p));
+                    Console.Write($"{account.Customer.Name}".PadRight(p));
                     Console.Write($"R$ {account.Balance.ToString("0.00")}".PadRight(p));
                     Console.WriteLine();
                 }
@@ -200,7 +200,7 @@ namespace BankingSystem.ConsoleApp
             Console.Write("Digite o número da nova agencia: ");
             updatedAccount.Agency = Convert.ToInt32(Console.ReadLine());
             Console.Write("Digite o CPF do novo cliente");
-            updatedAccount.Client = ClientManager.GetClient();
+            updatedAccount.Customer = CustomerManager.GetCustomer();
 
             _accountCrud.Update(oldAccount, updatedAccount);
 
@@ -215,7 +215,7 @@ namespace BankingSystem.ConsoleApp
             string type = AccountTypeMenu();
             Console.Clear();
 
-            Client client = ClientManager.GetClient();
+            Customer customer = CustomerManager.GetCustomer();
             Console.Write("Digite o número da agencia: ");
             int agency = 0;
             try
@@ -224,11 +224,11 @@ namespace BankingSystem.ConsoleApp
 
                 Account account = null;
                 if (type == "1")
-                    account = new CheckingAccount(agency, client);
+                    account = new CheckingAccount(agency, customer);
                 else if (type == "2")
-                    account = new InvestmentAccount(agency, client);
+                    account = new InvestmentAccount(agency, customer);
                 else if (type == "3")
-                    account = new SavingsAccount(agency, client);
+                    account = new SavingsAccount(agency, customer);
 
                 Console.WriteLine("Número da conta: " + account.Number);
 
