@@ -48,6 +48,7 @@ namespace BankingSystem.ConsoleApp
             Console.Clear();
             Account account = GetAccount();
             Console.WriteLine(account.ToString());
+            Console.WriteLine();
             AccountActionsMenu(account);
         }
 
@@ -165,26 +166,16 @@ namespace BankingSystem.ConsoleApp
         private static void ShowAllAccounts()
         {
             List<Account> accounts = _accountCrud.GetAll();
-            if (accounts.Count == 0)
+            Console.Clear();
+            int p = 12; // pad size
+            Console.WriteLine("Agência".PadRight(p) + "| Número".PadRight(p) + "| Correntista".PadRight(p) + "| Saldo");
+            foreach (var account in accounts)
             {
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine("Nenhuma conta registrada!");
-                Console.ResetColor();
-            }
-            else
-            {
-                Console.Clear();
-                int p = 12; // pad size
-                Console.WriteLine("Agência".PadRight(p) + "| Número".PadRight(p) + "| Correntista".PadRight(p) + "| Saldo");
-                foreach (var account in accounts)
-                {
-                    Console.Write($"{account.Agency}".PadRight(p));
-                    Console.Write($"{account.Number}".PadRight(p));
-                    Console.Write($"{account.Customer.Name}".PadRight(p));
-                    Console.Write($"R$ {account.Balance.ToString("0.00")}".PadRight(p));
-                    Console.WriteLine();
-                }
+                Console.Write($"{account.Agency}".PadRight(p));
+                Console.Write($"{account.Number}".PadRight(p));
+                Console.Write($"{account.Customer.Name}".PadRight(p));
+                Console.Write($"R$ {account.Balance.ToString("0.00")}".PadRight(p));
+                Console.WriteLine();
             }
             BackToAccountMenu();
         }

@@ -22,6 +22,11 @@ namespace BankingSystem.Library
             CPF = cpf;
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
         public override bool Equals(object obj)
         {
             return obj is Customer client &&

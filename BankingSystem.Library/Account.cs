@@ -41,9 +41,7 @@ namespace BankingSystem.Library
 
         public override string ToString()
         {
-            return "Agência: " + Agency
-                + "Número: " + Number
-                + "Correntista: " + Customer.ToString();
+            return $"Agência: {Agency}\nNúmero: {Number}\nCorrentista: {Customer.ToString()}";
         }
 
         public override int GetHashCode()
