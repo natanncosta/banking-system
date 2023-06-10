@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System;
 
 namespace BankingSystem.Library
 {
@@ -27,7 +26,7 @@ namespace BankingSystem.Library
 
         public void Update(Client oldClient, Client newClient)
         {
-            Console.WriteLine(clients.Remove(oldClient));
+            clients.Remove(oldClient);
             clients.Add(newClient);
         }
 
