@@ -1,3 +1,4 @@
+using BankingSystem.Library.Exceptions;
 using System.Collections.Generic;
 
 namespace BankingSystem.Library
@@ -16,7 +17,7 @@ namespace BankingSystem.Library
             foreach (var account in accounts)
                 if (account.Number == number)
                     return account;
-            return null;
+            throw new AccountNotFoundException();
         }
 
         public List<Account> GetAll()

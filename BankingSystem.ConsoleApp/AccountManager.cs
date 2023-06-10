@@ -139,28 +139,27 @@ namespace BankingSystem.ConsoleApp
         private static Account GetAccount()
         {
             Console.Write("Digite o numero da conta: ");
-            Account account = null;
             try
             {
                 int number = Convert.ToInt32(Console.ReadLine());
-                account = _accountCrud.GetAccount(number);
-                if (account == null)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Conta não encontrada.");
-                    Console.ResetColor();
-                    BackToAccountMenu();
-                }
+
+                return _accountCrud.GetAccount(number);
+            }
+            catch (AccountNotFoundException e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+                BackToAccountMenu();
             }
             catch (FormatException)
             {
-                Console.Clear();
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("Digite apenas números!!");
                 Console.ResetColor();
                 BackToAccountMenu();
             }
-            return account;
+            return null;
         }
 
         private static void ShowAllAccounts()
