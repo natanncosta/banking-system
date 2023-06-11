@@ -10,7 +10,9 @@ namespace BankingSystem.Library
 
         public double CalcTax()
         {
-            return Balance * 0.10;
+            double taxPercentage = 0.10;
+            double balanceWithYields = Balance * 1.02;
+            return balanceWithYields * taxPercentage;
         }
 
         public override void Withdraw(double amount)

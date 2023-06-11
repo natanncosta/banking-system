@@ -78,7 +78,7 @@ namespace BankingSystem.ConsoleApp
             Console.WriteLine("R$ " + account.Balance.ToString("0.00"));
             Console.ResetColor();
 
-            BackToAccountMenu();
+            BackToMenu();
         }
 
         private static void DoWithdraw(Account account)
@@ -95,7 +95,7 @@ namespace BankingSystem.ConsoleApp
                 Console.WriteLine("Saque realizado com sucesso.");
                 Console.ResetColor();
 
-                BackToAccountMenu();
+                BackToMenu();
             }
             catch (FundsInsufficientException e)
             {
@@ -120,7 +120,7 @@ namespace BankingSystem.ConsoleApp
             Console.WriteLine("Deposito realizado com sucesso.");
             Console.ResetColor();
 
-            BackToAccountMenu();
+            BackToMenu();
         }
 
         private static void DeleteAccount()
@@ -134,7 +134,7 @@ namespace BankingSystem.ConsoleApp
             Console.WriteLine("Conta excluida com sucesso.");
             Console.ResetColor();
 
-            BackToAccountMenu();
+            BackToMenu();
         }
 
         private static Account GetAccount()
@@ -151,14 +151,14 @@ namespace BankingSystem.ConsoleApp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
                 Console.ResetColor();
-                BackToAccountMenu();
+                BackToMenu();
             }
             catch (FormatException)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("Digite apenas números!!");
                 Console.ResetColor();
-                BackToAccountMenu();
+                BackToMenu();
             }
             return null;
         }
@@ -177,7 +177,7 @@ namespace BankingSystem.ConsoleApp
                 Console.Write($"R$ {account.Balance.ToString("0.00")}".PadRight(p));
                 Console.WriteLine();
             }
-            BackToAccountMenu();
+            BackToMenu();
         }
 
         private static void EditAccount()
@@ -197,7 +197,7 @@ namespace BankingSystem.ConsoleApp
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Conta atualizada.");
             Console.ResetColor();
-            BackToAccountMenu();
+            BackToMenu();
         }
 
         private static void CreateAccount()
@@ -231,7 +231,7 @@ namespace BankingSystem.ConsoleApp
                 Console.ResetColor();
             }
 
-            BackToAccountMenu();
+            BackToMenu();
         }
 
         private static string AccountTypeMenu()
@@ -255,37 +255,54 @@ namespace BankingSystem.ConsoleApp
         {
             Console.Clear();
 
+            var accounts = _accountCrud.GetAll();
+
             double moneyInCash = 0;
-            List<Account> accounts = _accountCrud.GetAll();
             foreach (var account in accounts)
-                moneyInCash += account.Balance;
+            {
+                double percentageOfYield = 1;
+
+                if (account is InvestmentAccount)
+                    percentageOfYield += 0.02;
+                else if (account is SavingsAccount)
+                    percentageOfYield += 0.005;
+
+                moneyInCash += account.Balance * percentageOfYield;
+            }
 
             Console.Write("Montante em caixa: ");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("R$ " + moneyInCash.ToString("0.00"));
             Console.ResetColor();
 
-            BackToAccountMenu();
+            Console.Write("\nPressione qualquer tecla...");
+            Console.ReadKey();
+            Program.MainMenu();
         }
 
         public static void TotalTaxs()
         {
             Console.Clear();
 
+            var accounts = _accountCrud.GetAll();
+
             double totalTax = 0;
-            List<Account> accounts = _accountCrud.GetAll();
             foreach (var account in accounts)
                 if (account is InvestmentAccount)
-                {
-                    InvestmentAccount invAccount = (InvestmentAccount)account;
-                    totalTax += invAccount.CalcTax();
-                }
-            Console.WriteLine("Total de tributos: R$ " + totalTax.ToString("0.00"));
+                    totalTax += ((InvestmentAccount)account).CalcTax();
 
-            BackToAccountMenu();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Total de tributos: R$ " + totalTax.ToString("0.00"));
+            Console.ResetColor();
+
+            Console.Write("\nPressione qualquer tecla...");
+            Console.ReadKey();
+            Program.MainMenu();
         }
 
-        static void BackToAccountMenu()
+
+
+        static void BackToMenu()
         {
             Console.Write("\nPressione qualquer tecla...");
             Console.ReadKey();
