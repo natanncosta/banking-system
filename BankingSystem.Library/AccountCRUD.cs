@@ -12,10 +12,10 @@ namespace BankingSystem.Library
             accounts.Add(account);
         }
 
-        public Account GetAccount(int number)
+        public Account GetAccount(int accountNumber)
         {
             foreach (var account in accounts)
-                if (account.Number == number)
+                if (account.Number == accountNumber)
                     return account;
             throw new AccountNotFoundException();
         }
