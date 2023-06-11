@@ -25,6 +25,8 @@ namespace BankingSystem.Library
         {
             if (amount < 0)
                 throw new ArgumentException("Valor de depósito não pode ser negativo");
+            if (amount == 0)
+                throw new ArgumentException("Valor de depósito deve ser maior que zero");
             Balance += amount;
         }
 
