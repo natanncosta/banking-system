@@ -75,7 +75,7 @@ namespace BankingSystem.ConsoleApp
         {
             Console.Write($"\nSaldo disponível: ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("R$ " + account.Balance.ToString("0.00"));
+            Console.WriteLine("R$ " + account.GetBalanceWithYields().ToString("0.00"));
             Console.ResetColor();
 
             BackToMenu();
@@ -185,7 +185,7 @@ namespace BankingSystem.ConsoleApp
                 Console.Write($"{account.Agency}".PadRight(p));
                 Console.Write($"{account.Number}".PadRight(p));
                 Console.Write($"{account.Customer.Name}".PadRight(p));
-                Console.Write($"R$ {account.Balance.ToString("0.00")}".PadRight(p));
+                Console.Write($"R$ {account.GetBalanceWithYields().ToString("0.00")}".PadRight(p));
                 Console.WriteLine();
             }
             BackToMenu();
@@ -270,16 +270,7 @@ namespace BankingSystem.ConsoleApp
 
             double moneyInCash = 0;
             foreach (var account in accounts)
-            {
-                double percentageOfYield = 1;
-
-                if (account is InvestmentAccount)
-                    percentageOfYield += 0.02;
-                else if (account is SavingsAccount)
-                    percentageOfYield += 0.005;
-
-                moneyInCash += account.Balance * percentageOfYield;
-            }
+                moneyInCash += account.GetBalanceWithYields();
 
             Console.Write("Montante em caixa: ");
             Console.ForegroundColor = ConsoleColor.DarkCyan;

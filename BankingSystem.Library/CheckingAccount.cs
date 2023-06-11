@@ -4,6 +4,8 @@ namespace BankingSystem.Library
 {
     public class CheckingAccount : Account, ITax
     {
+        public const double TAX_PERCENTAGE = 0.10;
+
         public CheckingAccount(
             int agency,
             Customer customer) : base(agency, customer)
@@ -12,9 +14,7 @@ namespace BankingSystem.Library
 
         public double CalcTax()
         {
-            double taxPercentage = 0.10;
-            double balanceWithYields = Balance * 1.02;
-            return balanceWithYields * taxPercentage;
+            return Balance * TAX_PERCENTAGE;
         }
 
         public override void Withdraw(double amount)

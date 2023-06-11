@@ -21,6 +21,11 @@ namespace BankingSystem.Library
 
         public abstract void Withdraw(double amount);
 
+        public virtual double GetBalanceWithYields()
+        {
+            return Balance;
+        }
+
         public virtual void Deposit(double amount)
         {
             if (amount < 0)

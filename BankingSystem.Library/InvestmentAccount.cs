@@ -4,15 +4,22 @@ namespace BankingSystem.Library
 {
     public class InvestmentAccount : Account, ITax
     {
+        public const double TAX_PERCENTAGE = 0.10;
+        public const double YIELDS_PERCENTAGE = 0.02;
+
         public InvestmentAccount(int agency, Customer client) : base(agency, client)
         {
         }
 
+        public override double GetBalanceWithYields()
+        {
+            return Balance + (Balance * YIELDS_PERCENTAGE);
+        }
+
         public double CalcTax()
         {
-            double taxPercentage = 0.10;
-            double balanceWithYields = Balance * 1.02;
-            return balanceWithYields * taxPercentage;
+            double balanceWithYields = Balance + (Balance * YIELDS_PERCENTAGE);
+            return balanceWithYields * TAX_PERCENTAGE;
         }
 
         public override void Withdraw(double amount)
