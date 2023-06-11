@@ -114,13 +114,24 @@ namespace BankingSystem.ConsoleApp
 
             Console.Write($"Digite o valor que gostaria de depositar: R$ ");
             double amount = Convert.ToDouble(Console.ReadLine());
-            account.Deposit(amount);
+            try
+            {
+                account.Deposit(amount);
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Deposito realizado com sucesso.");
-            Console.ResetColor();
-
-            BackToMenu();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Deposito realizado com sucesso.");
+                Console.ResetColor();
+            }
+            catch (ArgumentException e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
+            finally
+            {
+                BackToMenu();
+            }
         }
 
         private static void DeleteAccount()

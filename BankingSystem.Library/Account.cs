@@ -23,6 +23,8 @@ namespace BankingSystem.Library
 
         public virtual void Deposit(double amount)
         {
+            if (amount < 0)
+                throw new ArgumentException("Valor de depósito não pode ser negativo");
             Balance += amount;
         }
 
