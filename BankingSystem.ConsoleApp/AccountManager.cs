@@ -299,8 +299,8 @@ namespace BankingSystem.ConsoleApp
 
             double totalTax = 0;
             foreach (var account in accounts)
-                if (account is InvestmentAccount)
-                    totalTax += ((InvestmentAccount)account).CalcTax();
+                if (account is InvestmentAccount || account is CheckingAccount)
+                    totalTax += ((ITax)account).CalcTax();
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Total de tributos: R$ " + totalTax.ToString("0.00"));

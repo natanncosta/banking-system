@@ -12,7 +12,9 @@ namespace BankingSystem.Library
 
         public double CalcTax()
         {
-            throw new System.NotImplementedException();
+            double taxPercentage = 0.10;
+            double balanceWithYields = Balance * 1.02;
+            return balanceWithYields * taxPercentage;
         }
 
         public override void Withdraw(double amount)
