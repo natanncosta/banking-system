@@ -26,13 +26,13 @@ namespace BankingSystem.ConsoleApp
             switch (option)
             {
                 case "1":
-                    AccountManager.Menu(); break;
+                    AccountConsole.Menu(); break;
                 case "2":
-                    CustomerManager.Menu(); break;
+                    CustomerConsole.Menu(); break;
                 case "3":
-                    AccountManager.TotalMoney(); break;
+                    AccountConsole.TotalMoney(); break;
                 case "4":
-                    AccountManager.TotalTaxs(); break;
+                    AccountConsole.TotalTaxs(); break;
                 case "5":
                     Exit(); break;
                 default:
