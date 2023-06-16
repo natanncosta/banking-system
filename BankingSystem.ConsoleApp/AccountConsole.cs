@@ -6,7 +6,8 @@ namespace BankingSystem.ConsoleApp
 {
     public static class AccountConsole
     {
-        private static AccountHelper _helper = new AccountHelper();
+        private static AccountCRUD _crud = new();
+        private static CustomerCRUD _customerCrud = new();
 
         public static void Menu()
         {
@@ -22,6 +23,7 @@ namespace BankingSystem.ConsoleApp
 
         static void ChooseOption(string option)
         {
+            Console.Clear();
             switch (option)
             {
                 case "1":
@@ -46,64 +48,70 @@ namespace BankingSystem.ConsoleApp
                     Menu();
                     break;
             }
+            BackToMenu();
         }
 
         private static void Create()
         {
-            Console.Clear();
-
             try
             {
                 string menuOption = "4";
-                string option = _helper.GetAccountType();
+                string option = GetAccountType();
                 if (option == menuOption)
                     Menu();
 
-                Customer customer = _helper.GetCustomer();
+                Customer customer = CustomerConsole.GetCustomer();
+                if (customer == null)
+                {
+                    BackToMenu();
+                }
 
                 Console.Write("Digite o número da agencia: ");
                 int agency = Convert.ToInt32(Console.ReadLine());
 
-                int accountNumber = _helper.Create(option, agency, customer);
+                int accountNumber = Create(option, agency, customer);
                 Console.WriteLine($"Número da conta: {accountNumber}");
 
-                _helper.HandleSuccess("Conta criada com sucesso!");
+                HandleSuccess("Conta criada com sucesso!");
             }
             catch (FormatException)
             {
-                _helper.HandleWarning("Agência precisa ser um número!");
+                HandleWarning("Agência precisa ser um número!");
             }
             catch (ArgumentException e)
             {
-                _helper.HandleError(e.Message);
+                HandleError(e.Message);
             }
-            BackToMenu();
+        }
+
+        static string GetAccountType()
+        {
+            Console.WriteLine("Escolha o dipo de conta que deseja abrir");
+            Console.WriteLine("1 - Conta corrente");
+            Console.WriteLine("2 - Conta investimento");
+            Console.WriteLine("3 - Conta poupanca");
+            Console.WriteLine("4 - Voltar");
+            return Program.ReadOption();
         }
 
 
         private static void Edit()
         {
-            Console.Clear();
-
-            Account sourceAccount = GetAccount();
-            Account updatedAccount = sourceAccount;
+            Account account = GetAccount();
 
             Console.Write("Digite o número da nova agencia: ");
-            updatedAccount.Agency = Convert.ToInt32(Console.ReadLine());
+            account.Agency = Convert.ToInt32(Console.ReadLine());
             Console.Write("Digite o CPF do novo cliente");
-            updatedAccount.Customer = CustomerConsole.GetCustomer();
+            account.Customer = CustomerConsole.GetCustomer();
 
-            _helper.Update(sourceAccount, updatedAccount);
+            _crud.Update(account);
 
-            _helper.HandleSuccess("Conta atualizada.");
-            BackToMenu();
+            HandleSuccess("Conta atualizada.");
         }
 
         private static void ShowAll()
         {
-            Console.Clear();
-
-            var accounts = _helper.GetAll();
+            var accounts = _crud.GetAll();
 
             int size = 12;
             Console.WriteLine(
@@ -111,25 +119,22 @@ namespace BankingSystem.ConsoleApp
 
             foreach (var account in accounts)
             {
-                string agency = account.Agency.ToString();
-                string number = account.Number.ToString();
-                string name = account.Customer.Name;
-                string balance = account.GetBalanceWithYields().ToString("0.00");
+                var c = account.Value;
+                string agency = c.Agency.ToString();
+                string number = c.Number.ToString();
+                string name = c.Customer.Name;
+                string balance = c.GetBalanceWithYields().ToString("0.00");
 
                 Console.Write(agency.PadRight(size));
                 Console.Write(number.PadRight(size));
                 Console.Write(name.PadRight(size));
                 Console.Write($"R$ {balance.PadRight(size)}");
             }
-
-            BackToMenu();
         }
 
 
         private static void ShowAccount()
         {
-            Console.Clear();
-
             Account account = GetAccount();
 
             Console.WriteLine(account.ToString());
@@ -158,18 +163,16 @@ namespace BankingSystem.ConsoleApp
 
         private static void DoWithdraw(Account account)
         {
-            Console.Clear();
-
             Console.Write("Digite o valor do saque: R$ ");
             try
             {
                 double amount = Convert.ToDouble(Console.ReadLine());
                 account.Withdraw(amount);
-                _helper.HandleSuccess("Saque realizado com sucesso.");
+                HandleSuccess("Saque realizado com sucesso.");
             }
             catch (FundsInsufficientException e)
             {
-                _helper.HandleError(e.Message);
+                HandleError(e.Message);
 
                 Console.Write("\nPressione qualquer tecla...");
                 Console.ReadKey();
@@ -177,94 +180,124 @@ namespace BankingSystem.ConsoleApp
             }
             catch (FormatException e)
             {
-                _helper.HandleWarning(e.Message);
+                HandleWarning(e.Message);
             }
-            finally { BackToMenu(); }
         }
 
         private static void DoDeposit(Account account)
         {
-            Console.Clear();
-
             Console.Write($"Digite o valor que gostaria de depositar: R$ ");
             try
             {
                 double amount = Convert.ToDouble(Console.ReadLine());
                 account.Deposit(amount);
-                _helper.HandleSuccess("Deposito realizado com sucesso.");
+                HandleSuccess("Deposito realizado com sucesso.");
             }
             catch (ArgumentException e)
             {
-                _helper.HandleError(e.Message);
+                HandleError(e.Message);
             }
             catch (FormatException e)
             {
-                _helper.HandleWarning(e.Message);
+                HandleWarning(e.Message);
             }
-            finally { BackToMenu(); }
         }
 
         private static void ShowBalance(Account account)
         {
             Console.Write($"\nSaldo disponível: ");
-            _helper.HandleSuccess($"R$ {account.GetBalanceWithYields().ToString("0.00")}");
-            BackToMenu();
+            HandleSuccess($"R$ {account.GetBalanceWithYields().ToString("0.00")}");
         }
 
         private static void Delete()
         {
-            Console.Clear();
-
-            _helper.Delete(GetAccount());
-
-            _helper.HandleSuccess("Conta excluida com sucesso.");
-            BackToMenu();
+            _crud.Delete(GetAccount());
+            HandleSuccess("Conta excluida com sucesso.");
         }
 
         private static Account GetAccount()
         {
-            Console.Write("Digite o número da conta: ");
+            int number = 0;
             try
             {
-                int number = Convert.ToInt32(Console.ReadLine());
-                return _helper.Get(number);
-            }
-            catch (AccountNotFoundException e)
-            {
-                _helper.HandleError(e.Message);
+                number = GetAccountNumber();
             }
             catch (FormatException)
             {
-                _helper.HandleWarning("Digite apenas números!!");
+                HandleWarning("Digite apenas números!!");
             }
-            BackToMenu();
-            return null;
+            return _crud.GetAccount(number);
+        }
+
+        private static int GetAccountNumber()
+        {
+            Console.Write("Digite o número da conta: ");
+            return Convert.ToInt32(Console.ReadLine());
         }
 
         public static void TotalMoney()
         {
-            Console.Clear();
+            double totalMoney = CalcTotalMoney();
 
-            double totalMoney = _helper.CalcTotalMoney();
-
-            _helper.HandleSuccess($"Montante em caixa: R$ {totalMoney.ToString("0.00")}");
+            HandleSuccess($"Montante em caixa: R$ {totalMoney.ToString("0.00")}");
 
             Console.Write("\nPressione qualquer tecla...");
             Console.ReadKey();
             Program.MainMenu();
         }
 
+        static double CalcTotalMoney()
+        {
+            var accounts = _crud.GetAll();
+            double money = 0;
+            foreach (var account in accounts)
+                money += account.Value.GetBalanceWithYields();
+            return money;
+        }
+
         public static void TotalTaxs()
         {
-            Console.Clear();
+            double totalTax = CalcTotalTaxs();
 
-            double totalTax = _helper.CalcTotalTaxs();
-
-            _helper.HandleSuccess($"Total de tributos: R$ {totalTax.ToString("0.00")}");
+            HandleSuccess($"Total de tributos: R$ {totalTax.ToString("0.00")}");
 
             Console.Write("\nPressione qualquer tecla...");
             Console.ReadKey();
             Program.MainMenu();
+        }
+
+        static double CalcTotalTaxs()
+        {
+            var accounts = _crud.GetAll();
+            double totalTax = 0;
+            foreach (var account in accounts)
+            {
+                Account c = account.Value;
+                if (c is InvestmentAccount || c is CheckingAccount)
+                    totalTax += ((ITax)c).CalcTax();
+            }
+            return totalTax;
+        }
+
+        static void HandleError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+
+        static void HandleWarning(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+
+        static void HandleSuccess(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(message);
+            Console.ResetColor();
         }
 
         static void BackToMenu()
@@ -272,6 +305,28 @@ namespace BankingSystem.ConsoleApp
             Console.Write("\nPressione qualquer tecla...");
             Console.ReadKey();
             Menu();
+        }
+
+        static int Create(string accountType, int agency, Customer customer)
+        {
+            Account account = null;
+            switch (accountType)
+            {
+                case "1":
+                    account = new CheckingAccount(agency, customer);
+                    break;
+                case "2":
+                    account = new InvestmentAccount(agency, customer);
+                    break;
+                case "3":
+                    account = new SavingsAccount(agency, customer);
+                    break;
+                default:
+                    throw new ArgumentException("Opcao invalida");
+            }
+
+            _crud.Add(account);
+            return account.Number;
         }
     }
 }

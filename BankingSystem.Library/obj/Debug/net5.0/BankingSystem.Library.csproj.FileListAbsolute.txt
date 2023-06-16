@@ -10,3 +10,15 @@
 /home/natan/www/jp/BankingSystem/BankingSystem.Library/obj/Debug/net5.0/refint/BankingSystem.Library.dll
 /home/natan/www/jp/BankingSystem/BankingSystem.Library/obj/Debug/net5.0/BankingSystem.Library.pdb
 /home/natan/www/jp/BankingSystem/BankingSystem.Library/obj/Debug/net5.0/ref/BankingSystem.Library.dll
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/bin/Debug/net5.0/BankingSystem.Library.deps.json
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/bin/Debug/net5.0/BankingSystem.Library.dll
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/bin/Debug/net5.0/BankingSystem.Library.pdb
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/obj/Debug/net5.0/BankingSystem.Library.csproj.AssemblyReference.cache
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/obj/Debug/net5.0/BankingSystem.Library.GeneratedMSBuildEditorConfig.editorconfig
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/obj/Debug/net5.0/BankingSystem.Library.AssemblyInfoInputs.cache
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/obj/Debug/net5.0/BankingSystem.Library.AssemblyInfo.cs
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/obj/Debug/net5.0/BankingSystem.Library.csproj.CoreCompileInputs.cache
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/obj/Debug/net5.0/BankingSystem.Library.dll
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/obj/Debug/net5.0/refint/BankingSystem.Library.dll
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/obj/Debug/net5.0/BankingSystem.Library.pdb
+/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/obj/Debug/net5.0/ref/BankingSystem.Library.dll

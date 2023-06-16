@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/natan/www/jp/BankingSystem/BankingSystem.ConsoleApp/BankingSystem.ConsoleApp.csproj": {}
+    "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.ConsoleApp/BankingSystem.ConsoleApp.csproj": {}
   },
   "projects": {
-    "/home/natan/www/jp/BankingSystem/BankingSystem.ConsoleApp/BankingSystem.ConsoleApp.csproj": {
+    "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.ConsoleApp/BankingSystem.ConsoleApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/natan/www/jp/BankingSystem/BankingSystem.ConsoleApp/BankingSystem.ConsoleApp.csproj",
+        "projectUniqueName": "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.ConsoleApp/BankingSystem.ConsoleApp.csproj",
         "projectName": "BankingSystem.ConsoleApp",
-        "projectPath": "/home/natan/www/jp/BankingSystem/BankingSystem.ConsoleApp/BankingSystem.ConsoleApp.csproj",
+        "projectPath": "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.ConsoleApp/BankingSystem.ConsoleApp.csproj",
         "packagesPath": "/home/natan/.nuget/packages/",
-        "outputPath": "/home/natan/www/jp/BankingSystem/BankingSystem.ConsoleApp/obj/",
+        "outputPath": "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.ConsoleApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/natan/.nuget/NuGet/NuGet.Config"
@@ -26,8 +26,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "/home/natan/www/jp/BankingSystem/BankingSystem.Library/BankingSystem.Library.csproj": {
-                "projectPath": "/home/natan/www/jp/BankingSystem/BankingSystem.Library/BankingSystem.Library.csproj"
+              "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/BankingSystem.Library.csproj": {
+                "projectPath": "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/BankingSystem.Library.csproj"
               }
             }
           }
@@ -67,14 +67,14 @@
         }
       }
     },
-    "/home/natan/www/jp/BankingSystem/BankingSystem.Library/BankingSystem.Library.csproj": {
+    "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/BankingSystem.Library.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/natan/www/jp/BankingSystem/BankingSystem.Library/BankingSystem.Library.csproj",
+        "projectUniqueName": "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/BankingSystem.Library.csproj",
         "projectName": "BankingSystem.Library",
-        "projectPath": "/home/natan/www/jp/BankingSystem/BankingSystem.Library/BankingSystem.Library.csproj",
+        "projectPath": "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/BankingSystem.Library.csproj",
         "packagesPath": "/home/natan/.nuget/packages/",
-        "outputPath": "/home/natan/www/jp/BankingSystem/BankingSystem.Library/obj/",
+        "outputPath": "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/natan/.nuget/NuGet/NuGet.Config"

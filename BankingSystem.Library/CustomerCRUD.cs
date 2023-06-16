@@ -1,39 +1,35 @@
 using System.Collections.Generic;
-using BankingSystem.Library.Exceptions;
 
 namespace BankingSystem.Library
 {
     public class CustomerCRUD
     {
-        private static HashSet<Customer> customers = new();
+        private static Dictionary<string, Customer> customers = new();
 
         public void Add(Customer customer)
         {
-            customers.Add(customer);
+            customers.Add(customer.CPF, customer);
         }
 
         public Customer GetCustomer(string cpf)
         {
-            foreach (var customer in customers)
-                if (customer.CPF == cpf)
-                    return customer;
-            throw new CustomerNotFoundException();
+            return customers.GetValueOrDefault(cpf);
         }
 
-        public HashSet<Customer> GetAll()
+        public Dictionary<string, Customer> GetAll()
         {
-            return new HashSet<Customer>(customers);
+            return new Dictionary<string, Customer>(customers);
         }
 
-        public void Update(Customer oldCustomer, Customer newCustomer)
+        public void Update(Customer customer)
         {
-            customers.Remove(oldCustomer);
-            customers.Add(newCustomer);
+            Delete(customer);
+            Add(customer);
         }
 
         public void Delete(Customer customer)
         {
-            customers.Remove(customer);
+            customers.Remove(customer.CPF);
         }
     }
 }

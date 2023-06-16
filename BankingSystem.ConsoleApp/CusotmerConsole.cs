@@ -1,6 +1,5 @@
 using System;
 using BankingSystem.Library;
-using BankingSystem.Library.Exceptions;
 
 namespace BankingSystem.ConsoleApp
 {
@@ -22,6 +21,7 @@ namespace BankingSystem.ConsoleApp
 
         static void CallOption(string option)
         {
+            Console.Clear();
             switch (option)
             {
                 case "1":
@@ -39,78 +39,63 @@ namespace BankingSystem.ConsoleApp
                 default:
                     Menu(); break;
             }
+            BackToMenu();
         }
 
         private static void ShowOne()
         {
-            Console.Clear();
-
             Customer customer = GetCustomer();
 
             int p = 10;
             Console.WriteLine(
                     $"{"CPF".PadRight(p)}{"| Nome".PadRight(p)}{"| RG".PadRight(p)}{"| Endereço".PadRight(p)}");
             Console.WriteLine($"{customer.CPF.PadRight(p)}{customer.Name.PadRight(p)}{customer.RG.PadRight(p)}{customer.Address.PadRight(p)}");
-
-            BackToMenu();
         }
 
         private static void Create()
         {
-            Console.Clear();
-
             Console.Write("Digite o CPF: ");
-            Customer customer = new Customer(cpf: Console.ReadLine());
+            string cpf = Console.ReadLine();
 
-            try
+            Customer customer = _crud.GetCustomer(cpf);
+            if (customer != null)
             {
-                _crud.GetCustomer(customer.CPF);
                 HandleError("Já há um cliente cadastrado neste número de CPF!");
                 BackToMenu();
             }
-            catch (CustomerNotFoundException)
-            {
-                Console.Write("Digite o nome do cliente: ");
-                customer.Name = Console.ReadLine();
 
-                Console.Write("Digite o RG: ");
-                customer.RG = Console.ReadLine();
+            Console.Write("Digite o nome do cliente: ");
+            string name = Console.ReadLine();
 
-                Console.Write("Digite o endereco do cliente: ");
-                customer.Address = Console.ReadLine();
+            Console.Write("Digite o RG: ");
+            string rg = Console.ReadLine();
 
-                _crud.Add(customer);
+            Console.Write("Digite o endereco do cliente: ");
+            string address = Console.ReadLine();
 
-                HandleSuccess("Cliente cadastrado com sucesso!!");
-                BackToMenu();
-            }
+            _crud.Add(new Customer(cpf: cpf, name: name, rg: rg, address: address));
+
+            HandleSuccess("Cliente cadastrado com sucesso!!");
         }
 
         private static void Edit()
         {
-            Console.Clear();
-
-            Customer old = GetCustomer();
-            Customer newCustomer = new(old.CPF);
+            Customer customer = GetCustomer();
 
             Console.Write("Digite o nome atualizado: ");
-            newCustomer.Name = Console.ReadLine();
+            customer.Name = Console.ReadLine();
             Console.Write("Digite o RG atualizado: ");
-            newCustomer.RG = Console.ReadLine();
+            customer.RG = Console.ReadLine();
             Console.Write("Digite o endereco atualizado: ");
-            newCustomer.Address = Console.ReadLine();
+            customer.Address = Console.ReadLine();
 
-            _crud.Update(old, newCustomer);
+            _crud.Update(customer);
 
             HandleSuccess("Informacões do cliente atualizadas com sucesso!");
-
-            BackToMenu();
         }
 
         private static void ShowAll()
         {
-            Console.Clear();
-
             int p = 10;
             Console.WriteLine(
                     "CPF".PadRight(p)
@@ -119,43 +104,38 @@ namespace BankingSystem.ConsoleApp
                     + "| Endereço".PadRight(p));
 
             var customers = _crud.GetAll();
-            foreach (var customer in customers)
+            foreach (var c in customers)
+            {
+                Customer customer = c.Value;
                 Console.WriteLine(
                         customer.CPF.PadRight(p)
                         + customer.Name.PadRight(p)
                         + customer.RG.PadRight(p)
                         + customer.Address.PadRight(p));
-
-            BackToMenu();
+            }
+        }
+        static string ReadCpf()
+        {
+            Console.Write("Digite o CPF do cliente: ");
+            return Console.ReadLine();
         }
 
         public static Customer GetCustomer()
         {
-            Console.Write("Digite o CPF do cliente: ");
-            Customer customer = new(cpf: Console.ReadLine());
-
-            try
+            string cpf = ReadCpf();
+            Customer customer = _crud.GetCustomer(cpf);
+            if (customer == null)
             {
-                return _crud.GetCustomer(customer.CPF);
-            }
-            catch (CustomerNotFoundException e)
-            {
-                HandleError(e.Message);
-                BackToMenu();
+                HandleError("Cliente não encontrado!");
             }
 
             return customer;
-
         }
 
         private static void Delete()
         {
-            Console.Clear();
-
             _crud.Delete(GetCustomer());
             HandleSuccess("Cliente excluido com sucesso.");
-
-            BackToMenu();
         }
 
         private static void HandleError(string message)

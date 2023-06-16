@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uLK+u3odJaf1xyyh3rfVumEQTcnev4rnB7v3mg9R9OhElPD9W+nfEj3b3ylnUmP2LLYe1UqrLm/LOOSw58VJuA==",
+  "dgSpecHash": "nSLdlIEHRypT+3kT3biqC4V1DZnTtU9jeUn+feziSLwm9fGmJmXDcBBoAYkx9yVifIEnKB6SD6OJG6EFds6sYw==",
   "success": true,
-  "projectFilePath": "/home/natan/www/jp/BankingSystem/BankingSystem.Library/BankingSystem.Library.csproj",
+  "projectFilePath": "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/BankingSystem.Library.csproj",
   "expectedPackageFiles": [
     "/home/natan/.nuget/packages/microsoft.aspnetcore.app.ref/5.0.0/microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512"
   ],

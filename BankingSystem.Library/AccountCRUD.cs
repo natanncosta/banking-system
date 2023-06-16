@@ -1,39 +1,35 @@
-using BankingSystem.Library.Exceptions;
 using System.Collections.Generic;
 
 namespace BankingSystem.Library
 {
     public class AccountCRUD
     {
-        private static List<Account> accounts = new();
+        private static Dictionary<int, Account> accounts = new();
 
         public void Add(Account account)
         {
-            accounts.Add(account);
+            accounts.Add(account.Number, account);
         }
 
         public Account GetAccount(int accountNumber)
         {
-            foreach (var account in accounts)
-                if (account.Number == accountNumber)
-                    return account;
-            throw new AccountNotFoundException();
+            return accounts.GetValueOrDefault(accountNumber);
         }
 
-        public List<Account> GetAll()
+        public Dictionary<int, Account> GetAll()
         {
-            return new List<Account>(accounts);
+            return new Dictionary<int, Account>(accounts);
         }
 
-        public void Update(Account oldAccount, Account updatedAccount)
+        public void Update(Account account)
         {
-            accounts.Remove(oldAccount);
-            accounts.Add(updatedAccount);
+            Delete(account);
+            Add(account);
         }
 
         public void Delete(Account account)
         {
-            accounts.Remove(account);
+            accounts.Remove(account.Number);
         }
     }
 }

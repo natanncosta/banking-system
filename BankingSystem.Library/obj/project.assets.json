@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/natan/www/jp/BankingSystem/BankingSystem.Library/BankingSystem.Library.csproj",
+      "projectUniqueName": "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/BankingSystem.Library.csproj",
       "projectName": "BankingSystem.Library",
-      "projectPath": "/home/natan/www/jp/BankingSystem/BankingSystem.Library/BankingSystem.Library.csproj",
+      "projectPath": "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/BankingSystem.Library.csproj",
       "packagesPath": "/home/natan/.nuget/packages/",
-      "outputPath": "/home/natan/www/jp/BankingSystem/BankingSystem.Library/obj/",
+      "outputPath": "/home/natan/www/jp/uc3_04/banking-system/BankingSystem.Library/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/natan/.nuget/NuGet/NuGet.Config"
